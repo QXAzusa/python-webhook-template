@@ -12,13 +12,15 @@ async def recvMsg():
     if json_data["type"] == "LiveBeganEvent":
         username = json_data["data"]["user_info"]["name"]
         msg = username + '开播了'
-        url = 'https://api.telegram.org/bot' + TOKEN + '/sendMessage?chat_id=' + UID + '&text=' + msg
-        await httpx.AsyncClient().post(url)
+        senddata = {"chat_id": TG_ID, "text": msg, "disable_web_page_preview": "false"}
+        url = f"https://api.telegram.org/bot{KEY}/sendMessage"
+        await httpx.AsyncClient().post(url=url, data=senddata)
     elif json_data["type"] == "LiveEndedEvent":
         username = json_data["data"]["user_info"]["name"]
         msg = username + '下播了'
-        url = 'https://api.telegram.org/bot' + TOKEN + '/sendMessage?chat_id=' + UID + '&text=' + msg
-        await httpx.AsyncClient().post(url)
+        senddata = {"chat_id": TG_ID, "text": msg, "disable_web_page_preview": "false"}
+        url = f"https://api.telegram.org/bot{KEY}/sendMessage"
+        await httpx.AsyncClient().post(url=url, data=senddata)
     return "200 OK"
 
 
